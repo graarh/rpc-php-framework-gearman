@@ -48,4 +48,9 @@ class File implements ExchangeInterface
     {
         return $this->fileName;
     }
+
+    public function setId($id)
+    {
+        $this->fileName = $id;
+    }
 }

@@ -33,4 +33,10 @@ interface ExchangeInterface
      * @return string
      */
     public function getId();
+
+    /**
+     * Set id of exchange
+     * @param string $id
+     */
+    public function setId($id);
 }

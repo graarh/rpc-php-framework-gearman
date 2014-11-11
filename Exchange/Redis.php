@@ -65,4 +65,9 @@ class Redis implements ExchangeInterface
     {
         return $this->key;
     }
+
+    public function setId($id)
+    {
+        $this->key = $id;
+    }
 }
