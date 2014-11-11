@@ -9,6 +9,7 @@ class Redis implements ExchangeInterface
     /** @var \Redis $redis */
     private $redis;
     private $key;
+
     public function __construct(\Redis $instance)
     {
         $this->redis = $instance;
@@ -31,6 +32,5 @@ class Redis implements ExchangeInterface
             throw new Exception("Key `{$this->key}` not found in redis storage", 1);
         }
         return $this->decode($this->redis->get($this->key));
-
     }
 }
