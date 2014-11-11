@@ -4,6 +4,8 @@ namespace ComputationCloud\Exchange;
 
 class File implements ExchangeInterface
 {
+    use Json;
+
     private $fileName;
 
     public function __construct($folder)
@@ -18,11 +20,7 @@ class File implements ExchangeInterface
 
     public function put($data)
     {
-        $encoded = json_encode($data);
-        if ($encoded === false) {
-            throw new Exception("Cannot encode data to json");
-        }
-        if (file_put_contents($this->fileName, json_encode($data)) === false) {
+        if (file_put_contents($this->fileName, $this->encode($data)) === false) {
             throw new Exception("Cannot write to file " . $this->fileName, 1);
         }
     }
@@ -35,6 +33,6 @@ class File implements ExchangeInterface
         if (unlink($this->fileName) === false) {
             throw new Exception("Cannot delete file " . $this->fileName, 1);
         }
-        return json_decode($data, true);
+        return $this->decode($data);
     }
 }
