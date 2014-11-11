@@ -34,10 +34,14 @@ class Redis implements ExchangeInterface
             Helper::is($config['timeout'], 0.0)
         );
 
-        do {
-            $this->key = uniqid("", true);
+        if ($key = Helper::is($config['id'])) {
+            $this->key = $key;
+        } else {
+            do {
+                $this->key = uniqid("", true);
 
-        } while ($this->redis->exists($this->key));
+            } while ($this->redis->exists($this->key));
+        }
     }
 
     public function put($data)
@@ -55,5 +59,10 @@ class Redis implements ExchangeInterface
         $result = $this->decode($this->redis->get($this->key));
         $this->redis->delete($this->key);
         return $result;
+    }
+
+    public function getId()
+    {
+        return $this->key;
     }
 }

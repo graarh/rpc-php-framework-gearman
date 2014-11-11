@@ -21,4 +21,13 @@ class FileExchangeTestCase extends PHPUnit_Framework_TestCase
         $this->setExpectedException("Exception");
         $exchange->pop();
     }
+
+    public function testId()
+    {
+        $exchange = new File([]);
+        $exchange->put('test');
+        $id = $exchange->getId();
+        $newExchange = new File(['id' => $id]);
+        $this->assertEquals('test', $newExchange->pop());
+    }
 }

@@ -27,4 +27,10 @@ interface ExchangeInterface
      * @throws Exception
      */
     public function pop();
+
+    /**
+     * Get id of exchange
+     * @return string
+     */
+    public function getId();
 }

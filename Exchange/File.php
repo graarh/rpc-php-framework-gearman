@@ -17,9 +17,13 @@ class File implements ExchangeInterface
         if (substr($folder, -1) != DIRECTORY_SEPARATOR) {
             $folder .= DIRECTORY_SEPARATOR;
         }
-        do {
-            $this->fileName = $folder . uniqid("", true);
-        } while (file_exists($this->fileName));
+        if ($fileName = Helper::is($config['id'])) {
+            $this->fileName = $fileName;
+        } else {
+            do {
+                $this->fileName = $folder . uniqid("", true);
+            } while (file_exists($this->fileName));
+        }
     }
 
     public function put($data)
@@ -38,5 +42,10 @@ class File implements ExchangeInterface
             throw new Exception("Cannot delete file " . $this->fileName, 1);
         }
         return $this->decode($data);
+    }
+
+    public function getId()
+    {
+        return $this->fileName;
     }
 }

@@ -21,4 +21,14 @@ class RedisExchangeTestCase extends PHPUnit_Framework_TestCase
         $this->setExpectedException("Exception");
         $exchange->pop();
     }
+
+    public function testId()
+    {
+        $exchange = new Redis([]);
+        $exchange->put('test');
+        $id = $exchange->getId();
+        $newExchange = new Redis(['id' => $id]);
+        $this->assertEquals('test', $newExchange->pop());
+    }
+
 }
