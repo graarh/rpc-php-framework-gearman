@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskManager\Task;
+namespace TaskManager\Worker;
 
 use TaskManager\Helper;
 use TaskManager\WorkerInterface;
