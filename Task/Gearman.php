@@ -7,21 +7,23 @@ use ComputationCloud\Exchange\ExchangeInterface;
 
 abstract class Gearman implements TaskInterface
 {
-    /** @var \GearmanClient $gearmanInstance*/
+    /** @var \GearmanClient|\GearmanWorker $gearmanInstance*/
     private $gearmanInstance;
     /** @var ExchangeInterface $exchange */
     private $exchange;
     private $job = null;
     private $name;
 
-    public function __construct($config, $worker = false)
+    public function __construct(Array $config, $worker = false)
     {
+        $servers = Helper::is($config['gearman']['servers'], '127.0.0.1:4730');
+        $this->name = Helper::is($config['gearman']['function'], get_class($this));
         if (!$worker) {
-            $servers = Helper::is($config['gearman']['servers'], '127.0.0.1:4730');
             $this->gearmanInstance = new \GearmanClient();
             $this->gearmanInstance->addServers($servers);
-
-            $this->name = Helper::is($config['gearman']['function'], get_class($this));
+        } else {
+            $this->gearmanInstance = new \GearmanWorker();
+            $this->gearmanInstance->addFunction($this->name, [$this, 'workerRunner']);
         }
         if (!($this->exchange = Helper::is($config['exchange']))) {
             throw new Exception("Exchange not defined", 1);
@@ -54,7 +56,18 @@ abstract class Gearman implements TaskInterface
         if (!$this->job || !$this->isComplete()) {
             return false;
         }
-        return $this->exchange->get();
+        return $this->exchange->pop();
+    }
+
+    public function work() {
+        $this->gearmanInstance->work();
+    }
+
+    public function workerRunner($job) {
+        $params = json_decode($job->workload(), true);
+        $result = $this->worker($params);
+        $this->exchange->put($result);
+        return true;
     }
 
     abstract public function worker($params);
