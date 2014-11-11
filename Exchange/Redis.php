@@ -3,6 +3,7 @@
 namespace ComputationCloud\Exchange;
 
 use ComputationCloud\Helper;
+use ComputationCloud\Json;
 
 /**
  * Class Redis
