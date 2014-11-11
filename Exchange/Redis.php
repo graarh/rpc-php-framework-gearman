@@ -31,6 +31,8 @@ class Redis implements ExchangeInterface
         if (!$this->redis->exists($this->key)) {
             throw new Exception("Key `{$this->key}` not found in redis storage", 1);
         }
-        return $this->decode($this->redis->get($this->key));
+        $result =  $this->decode($this->redis->get($this->key));
+        $this->redis->delete($this->key);
+        return $result;
     }
 }
