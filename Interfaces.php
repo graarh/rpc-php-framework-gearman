@@ -16,8 +16,3 @@ interface MultiTaskInterface
     public function status();
 }
 
-interface WorkerInterface
-{
-    public function __construct($config);
-    public function work(Task\TaskInterface $task);
-}

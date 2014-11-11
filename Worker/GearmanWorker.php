@@ -3,7 +3,6 @@
 namespace TaskManager\Worker;
 
 use TaskManager\Helper;
-use TaskManager\WorkerInterface;
 use TaskManager\Task\TaskInterface;
 use TaskManager\Exchange\ExchangeInterface;
 
