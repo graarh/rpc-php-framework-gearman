@@ -5,6 +5,7 @@ namespace ComputationCloud\Task;
 use ComputationCloud\Helper;
 use ComputationCloud\Exchange\ExchangeInterface;
 use ComputationCloud\Json;
+use ComputationCloud\Exchange\Factory;
 
 /**
  * Class Redis
@@ -15,7 +16,11 @@ use ComputationCloud\Json;
  * [
  *  'connection' => ['server' => 'localhost'],
  *  'function' => 'sum',
- *  'exchange' => new ComputationCloud\Exchange\Redis(...)
+ *  'exchange' =>
+ *      [
+ *          'type' => 'redis',
+ *          'config' => ['host' => 'localhost']
+ *      ]
  *  ],
  * ]
  *
@@ -56,10 +61,11 @@ abstract class Redis implements TaskInterface
                 $this->key = $this->name . '-' . uniqid('', true);
             } while ($this->redisInstance->exists($this->key));
         }
-
-        if (!($this->exchange = Helper::is($config['exchange']))) {
+        if (!($exchangeConfig = Helper::is($config['exchange']))) {
             throw new Exception("Exchange not defined", 1);
         }
+        $this->exchangeFactory = new Factory(Helper::is($exchangeConfig['type']));
+        $this->exchange = $this->exchangeFactory->getInstance(Helper::is($exchangeConfig['config']));
     }
 
     public function getCoreInterface()
@@ -76,6 +82,7 @@ abstract class Redis implements TaskInterface
 
         $data = [
             'params' => $params,
+            'exchange' => $this->exchange->getId(),
             'time' => time(),
         ];
 
@@ -113,7 +120,10 @@ abstract class Redis implements TaskInterface
         }
         $data = $this->decode($this->redisInstance->get($jobName));
         $result = $this->worker($data['params']);
+
+        $this->exchange->setId($data['exchange']);
         $this->exchange->put($result);
+
         $this->redisInstance->delete($jobName);
     }
 
