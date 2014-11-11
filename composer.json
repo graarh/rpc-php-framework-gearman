@@ -1,7 +1,7 @@
 {
     "name": "graarh/computationcloud",
     "type": "library",
-    "description": "Task manager framework based on gearman",
+    "description": "Computation cloud php framework",
     "keywords": [],
     "homepage": "http://github.com/graarh",
     "license": "MIT",
@@ -14,7 +14,7 @@
     "autoload": {
         "psr-0": { "ComputationCloud\\": "" }
     },
-    "target-dir": "graarh/ComputationCloud",
+    "target-dir": "ComputationCloud",
     "require": {
         "php": ">=5.4"
     },
