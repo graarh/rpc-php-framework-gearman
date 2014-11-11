@@ -1,11 +1,6 @@
 <?php
 namespace TaskManager;
 
-interface ExchangeInterface
-{
-    public function put($data);
-    public function get();
-}
 
 interface TaskInterface
 {

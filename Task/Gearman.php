@@ -4,7 +4,7 @@ namespace TaskManager\Task;
 
 use TaskManager\TaskInterface;
 use TaskManager\Helper;
-use TaskManager\ExchangeInterface;
+use TaskManager\Exchange\ExchangeInterface;
 
 abstract class Gearman implements TaskInterface
 {

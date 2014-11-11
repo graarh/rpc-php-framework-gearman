@@ -2,8 +2,6 @@
 
 namespace TaskManager\Exchange;
 
-use TaskManager\ExchangeInterface;
-
 class File implements ExchangeInterface
 {
     private $fileName;
