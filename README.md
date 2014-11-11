@@ -12,7 +12,7 @@ scripts that exchanges data over Redis. And replace it with gearman, or even sto
 Example of usage
 ----------------
 
-You can also look at the Examples directory.
+Currently, you can check tests for example of usage. Later on you can also look at the Examples directory.
 
 Roadmap
 -------
