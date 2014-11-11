@@ -4,13 +4,13 @@ namespace TaskManager\Task;
 
 use TaskManager\TaskInterface;
 use TaskManager\Helper;
-use TaskManager\Exchange;
+use TaskManager\ExchangeInterface;
 
 abstract class Gearman implements TaskInterface
 {
     /** @var \GearmanClient $gearmanInstance*/
     private $gearmanInstance;
-    /** @var Exchange $exchange */
+    /** @var ExchangeInterface $exchange */
     private $exchange;
     private $job = null;
     private $name;
@@ -23,10 +23,9 @@ abstract class Gearman implements TaskInterface
             $this->gearmanInstance->addServers($servers);
 
             $this->name = Helper::is($config['gearman']['function'], get_class($this));
-
-            if (!($this->exchange = Helper::is($config['exchange']))) {
-                throw new Exception("Exchange not defined", 1);
-            }
+        }
+        if (!($this->exchange = Helper::is($config['exchange']))) {
+            throw new Exception("Exchange not defined", 1);
         }
     }
 
