@@ -4,7 +4,7 @@ namespace TaskManager;
 interface Exchange
 {
     public function put($data);
-    public function get($data);
+    public function get();
 }
 
 interface TaskInterface
