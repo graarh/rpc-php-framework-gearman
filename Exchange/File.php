@@ -2,14 +2,17 @@
 
 namespace ComputationCloud\Exchange;
 
+use ComputationCloud\Helper;
+
 class File implements ExchangeInterface
 {
     use Json;
 
     private $fileName;
 
-    public function __construct($folder)
+    public function __construct(Array $config)
     {
+        $folder = Helper::is($config['folder'], '.');
         if (substr($folder, -1) != DIRECTORY_SEPARATOR) {
             $folder .= DIRECTORY_SEPARATOR;
         }
