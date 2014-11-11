@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskManager\Exchange;
+namespace TaskManager\Task;
 
 class Exception extends \Exception
 {
