@@ -1,6 +1,6 @@
 <?php
 
-class ExceptionTestCase extends PHPUnit_Framework_TestCase
+class FileExchangeTestCase extends PHPUnit_Framework_TestCase
 {
     public function testPutGet()
     {
