@@ -1,6 +1,8 @@
 Computation cloud framework on php
 ==================================
 
+This is just draft. Plan for working version is nov, 12.
+
 Computation cloud, remote procedure calls, background tasks processing on php using gearman. 
 RabbitMQ, Memcached, Redis support is in the roadmap.
 
