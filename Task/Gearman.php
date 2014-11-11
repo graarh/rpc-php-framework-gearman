@@ -2,7 +2,6 @@
 
 namespace TaskManager\Task;
 
-use TaskManager\TaskInterface;
 use TaskManager\Helper;
 use TaskManager\Exchange\ExchangeInterface;
 

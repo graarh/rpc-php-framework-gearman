@@ -4,7 +4,7 @@ namespace TaskManager\Worker;
 
 use TaskManager\Helper;
 use TaskManager\WorkerInterface;
-use TaskManager\TaskInterface;
+use TaskManager\Task\TaskInterface;
 use TaskManager\Exchange\ExchangeInterface;
 
 class GearmanWorker implements WorkerInterface

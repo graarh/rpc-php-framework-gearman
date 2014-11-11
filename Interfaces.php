@@ -2,20 +2,6 @@
 namespace TaskManager;
 
 
-interface TaskInterface
-{
-    //config
-    public function __construct($config);
-
-    //worker part
-    public function getCoreInterface();
-    public function worker($params);
-
-    //client part
-    public function run($params);
-    public function status();
-    public function result();
-}
 
 interface TaskFactory
 {
@@ -26,12 +12,12 @@ interface TaskFactory
 
 interface MultiTaskInterface
 {
-    public function addTask(TaskInterface $task);
+    public function addTask(Task\TaskInterface $task);
     public function status();
 }
 
 interface WorkerInterface
 {
     public function __construct($config);
-    public function work(TaskInterface $task);
+    public function work(Task\TaskInterface $task);
 }
