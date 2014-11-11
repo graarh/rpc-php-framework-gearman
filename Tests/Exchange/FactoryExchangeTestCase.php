@@ -6,7 +6,7 @@ class FactoryExchangeTestCase extends PHPUnit_Framework_TestCase
 {
     public function testPutGet()
     {
-        $class = (new Factory())->getInstance("File", []);
+        $class = (new Factory("File"))->getInstance([]);
         $this->assertTrue($class instanceof \ComputationCloud\Exchange\File);
         $class->put("test");
         $this->assertEquals("test", $class->pop());
