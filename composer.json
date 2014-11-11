@@ -16,8 +16,7 @@
     },
     "target-dir": "graarh/ComputationCloud",
     "require": {
-        "php": ">=5.4",
-        "openprovider/helper": "*"
+        "php": ">=5.4"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
