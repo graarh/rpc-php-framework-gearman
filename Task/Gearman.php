@@ -35,20 +35,23 @@ abstract class Gearman implements TaskInterface
 
     public function run($params)
     {
+        if (!$this->isComplete()) {
+            throw new Exception("Do not run another task on the same instance until current is working", 1);
+        }
         $this->job = $this->gearmanInstance->doBackground($this->name, json_encode($params));
     }
 
-    public function status()
+    public function isComplete()
     {
         if (!$this->job) {
-            return false;
+            return true;
         }
-        return $this->gearmanInstance->jobStatus($this->job);
+        return !$this->gearmanInstance->jobStatus($this->job)[0];
     }
 
     public function result()
     {
-        if (!$this->job || !$this->status()[0]) {
+        if (!$this->job || !$this->isComplete()) {
             return false;
         }
         return $this->exchange->get();

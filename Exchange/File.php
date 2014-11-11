@@ -30,10 +30,10 @@ class File implements ExchangeInterface
     public function get()
     {
         if (($data = file_get_contents($this->fileName)) === false) {
-            throw new Exception("Cannot read data from file " . $this->fileName, 2);
+            throw new Exception("Cannot read data from file " . $this->fileName, 1);
         }
         if (unlink($this->fileName) === false) {
-            throw new Exception("Cannot delete file " . $this->fileName, 3);
+            throw new Exception("Cannot delete file " . $this->fileName, 1);
         }
         return json_decode($data, true);
     }

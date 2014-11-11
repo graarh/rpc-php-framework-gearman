@@ -10,6 +10,6 @@ interface TaskInterface
     public function worker($params);
 
     public function run($params);
-    public function status();
+    public function isComplete();
     public function result();
 }
