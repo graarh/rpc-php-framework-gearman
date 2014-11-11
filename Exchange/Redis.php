@@ -47,7 +47,7 @@ class Redis implements ExchangeInterface
         }
     }
 
-    public function get()
+    public function pop()
     {
         if (!$this->redis->exists($this->key)) {
             throw new Exception("Key `{$this->key}` not found in redis storage", 1);

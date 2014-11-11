@@ -22,9 +22,9 @@ interface ExchangeInterface
     public function put($data);
 
     /**
-     * Get data from this instance of exchange
+     * Get data from this instance of exchange, and remove it
      * @return mixed
      * @throws Exception
      */
-    public function get();
+    public function pop();
 }

@@ -29,7 +29,7 @@ class File implements ExchangeInterface
         }
     }
 
-    public function get()
+    public function pop()
     {
         if (($data = file_get_contents($this->fileName)) === false) {
             throw new Exception("Cannot read data from file " . $this->fileName, 1);

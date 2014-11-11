@@ -8,17 +8,17 @@ class RedisExchangeTestCase extends PHPUnit_Framework_TestCase
     {
         $exchange = new Redis(['host' => 'localhost']);
         $exchange->put(['this' => 'is test']);
-        $data = $exchange->get();
+        $data = $exchange->pop();
         $this->assertEquals(['this' => 'is test'], $data, "'test' string was put into exchange");
 
         $this->setExpectedException("Exception");
-        $exchange->get();
+        $exchange->pop();
     }
 
     public function testEmptyGet()
     {
         $exchange = new Redis(['host' => 'localhost']);
         $this->setExpectedException("Exception");
-        $exchange->get();
+        $exchange->pop();
     }
 }
