@@ -2,9 +2,9 @@
 
 namespace TaskManager\Exchange;
 
-use TaskManager\Exchange;
+use TaskManager\ExchangeInterface;
 
-class File implements Exchange
+class File implements ExchangeInterface
 {
     private $fileName;
 
@@ -20,7 +20,11 @@ class File implements Exchange
 
     public function put($data)
     {
-        if (file_put_contents($this->fileName, $data) === false) {
+        $encoded = json_encode($data);
+        if ($encoded === false) {
+            throw new Exception("Cannot encode data to json");
+        }
+        if (file_put_contents($this->fileName, json_encode($data)) === false) {
             throw new Exception("Cannot write to file " . $this->fileName, 1);
         }
     }
@@ -33,6 +37,6 @@ class File implements Exchange
         if (unlink($this->fileName) === false) {
             throw new Exception("Cannot delete file " . $this->fileName, 3);
         }
-        return $data;
+        return json_decode($data, true);
     }
 }
