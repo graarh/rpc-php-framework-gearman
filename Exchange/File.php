@@ -8,8 +8,8 @@ class File implements ExchangeInterface
 
     public function __construct($folder)
     {
-        if (substr($folder, -1) != PATH_SEPARATOR) {
-            $folder .= PATH_SEPARATOR;
+        if (substr($folder, -1) != DIRECTORY_SEPARATOR) {
+            $folder .= DIRECTORY_SEPARATOR;
         }
         do {
             $this->fileName = $folder . uniqid("", true);
