@@ -1,7 +1,7 @@
 <?php
 namespace TaskManager;
 
-interface Exchange
+interface ExchangeInterface
 {
     public function put($data);
     public function get();
@@ -26,10 +26,17 @@ interface TaskFactory
 {
     public function __construct($config);
     public function getTaskInstance($name);
+    public function getWorkerInstance($name);
 }
 
-interface MultiTask
+interface MultiTaskInterface
 {
     public function addTask(TaskInterface $task);
     public function status();
+}
+
+interface WorkerInterface
+{
+    public function __construct($config);
+    public function work(TaskInterface $task);
 }
