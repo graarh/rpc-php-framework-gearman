@@ -1,8 +1,10 @@
 <?php
 
-namespace ComputationCloud\Task;
+namespace ComputationCloud;
 
-class GearmanMulti implements MultiTaskInterface
+use ComputationCloud\Task\TaskInterface;
+
+class MultiTask
 {
     /** @var []TaskInterface $tasks */
     private $tasks = [];
