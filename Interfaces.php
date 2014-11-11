@@ -7,12 +7,7 @@ interface TaskFactory
 {
     public function __construct($config);
     public function getTaskInstance($name);
+    public function getMultiTaskInstance($name);
     public function getWorkerInstance($name);
-}
-
-interface MultiTaskInterface
-{
-    public function addTask(Task\TaskInterface $task);
-    public function status();
 }
 
