@@ -1,10 +1,10 @@
 <?php
 
-namespace TaskManager\Worker;
+namespace ComputationCloud\Worker;
 
-use TaskManager\Helper;
-use TaskManager\Task\TaskInterface;
-use TaskManager\Exchange\ExchangeInterface;
+use ComputationCloud\Helper;
+use ComputationCloud\Task\TaskInterface;
+use ComputationCloud\Exchange\ExchangeInterface;
 
 class GearmanWorker implements WorkerInterface
 {

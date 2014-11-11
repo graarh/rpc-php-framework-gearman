@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskManager;
+namespace ComputationCloud;
 
 class Helper
 {

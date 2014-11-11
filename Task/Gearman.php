@@ -1,9 +1,9 @@
 <?php
 
-namespace TaskManager\Task;
+namespace ComputationCloud\Task;
 
-use TaskManager\Helper;
-use TaskManager\Exchange\ExchangeInterface;
+use ComputationCloud\Helper;
+use ComputationCloud\Exchange\ExchangeInterface;
 
 abstract class Gearman implements TaskInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskManager\Exchange;
+namespace ComputationCloud\Exchange;
 
 class Exception extends \Exception
 {

@@ -1,5 +1,5 @@
 {
-    "name": "graarh/taskmanager",
+    "name": "graarh/computationcloud",
     "type": "library",
     "description": "Task manager framework based on gearman",
     "keywords": [],
@@ -12,9 +12,9 @@
         }
     ],
     "autoload": {
-        "psr-0": { "TaskManager\\": "" }
+        "psr-0": { "ComputationCloud\\": "" }
     },
-    "target-dir": "graarh/TaskManager",
+    "target-dir": "graarh/ComputationCloud",
     "require": {
         "php": ">=5.4",
         "openprovider/helper": "*"

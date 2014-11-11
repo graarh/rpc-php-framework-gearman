@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskManager\Task;
+namespace ComputationCloud\Task;
 
 interface TaskInterface
 {

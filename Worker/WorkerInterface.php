@@ -1,8 +1,8 @@
 <?php
 
-namespace TaskManager\Worker;
+namespace ComputationCloud\Worker;
 
-use TaskManager\Task\TaskInterface;
+use ComputationCloud\Task\TaskInterface;
 
 interface WorkerInterface
 {
