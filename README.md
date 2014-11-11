@@ -22,4 +22,4 @@ Roadmap
 3. Add an example
 4. Update readme
 5. Setup travis ci
-6. Add redis support
+
