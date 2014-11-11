@@ -1,22 +1,24 @@
 <?php
 
+use ComputationCloud\Exchange\File;
+
 class FileExchangeTestCase extends PHPUnit_Framework_TestCase
 {
     public function testPutGet()
     {
-        $exchange = new ComputationCloud\Exchange\File("/tmp");
-        $exchange->put("test");
+        $exchange = new File(".");
+        $exchange->put(['this' => 'is test']);
         $data = $exchange->get();
-        $this->assertEquals("test", $data, "'test' string was put into exchange");
+        $this->assertEquals(['this' => 'is test'], $data, "'test' string was put into exchange");
 
-        $this->setExpectedException("ComputationCloud\\Exchange\\Exception");
+        $this->setExpectedException("Exception");
         $exchange->get();
     }
 
     public function testEmptyGet()
     {
-        $exchange = ComputationCloud\Exchange\File("/tmp");
-        $this->setExpectedException("ComputationCloud\\Exchange\\Exception");
+        $exchange = new File("/tmp");
+        $this->setExpectedException("Exception");
         $exchange->get();
     }
 }
