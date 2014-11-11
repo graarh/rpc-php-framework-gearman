@@ -1,7 +1,7 @@
 Computation cloud framework on php
 ==================================
 
-This is just draft. Plan for working version is nov, 12.
+Redis task is working, gearman is not.
 
 Computation cloud, remote procedure calls, background tasks processing on php using gearman. 
 RabbitMQ, Memcached, Redis support is in the roadmap.
@@ -17,9 +17,9 @@ You can also look at the Examples directory.
 Roadmap
 -------
 
-1. Add tests
-2. Make working
+1. Make gearman task working
+2. Make MultiTask more usable
 3. Add an example
 4. Update readme
 5. Setup travis ci
-
+6. Make documentation

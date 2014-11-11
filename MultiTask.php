@@ -6,7 +6,7 @@ use ComputationCloud\Task\TaskInterface;
 
 class MultiTask
 {
-    /** @var []TaskInterface $tasks */
+    /** @var TaskInterface[] $tasks */
     private $tasks = [];
 
     public function addTask(TaskInterface $task)
@@ -18,8 +18,7 @@ class MultiTask
     {
         foreach ($this->tasks as $task) {
             /** @var TaskInterface $task */
-
-            if (!$task-isComplete()) {
+            if (!$task->isComplete()) {
                 return false;
             }
         }

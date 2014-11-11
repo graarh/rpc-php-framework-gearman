@@ -2,7 +2,7 @@
 
 use ComputationCloud\Task\Redis;
 
-class TestRedisTask extends Redis
+class Summator extends Redis
 {
     public function worker($params)
     {
@@ -16,7 +16,7 @@ class RedisTaskTestCase extends PHPUnit_Framework_TestCase
     {
         $config = [
             'connection' => ['host' => 'localhost'],
-            'function' => 'sum',
+            'function' => 'sum'.uniqid(),
             'exchange' => [
                 'type' => 'Redis',
                 'config' => []
@@ -24,7 +24,7 @@ class RedisTaskTestCase extends PHPUnit_Framework_TestCase
         ];
 
         //run task, or 'client'
-        $summator = new TestRedisTask($config);
+        $summator = new Summator($config);
 
         //not running task should be complete
         $this->assertTrue($summator->isComplete());
@@ -35,7 +35,7 @@ class RedisTaskTestCase extends PHPUnit_Framework_TestCase
         //worker should be used in a separate process
         //but for testing purposes let's create it here
         //create worker instance and run it
-        $worker = new TestRedisTask($config);
+        $worker = new Summator($config);
         $worker->work();
 
         //check and get result
