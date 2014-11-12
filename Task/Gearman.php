@@ -4,6 +4,8 @@ namespace ComputationCloud\Task;
 
 use ComputationCloud\Helper;
 use ComputationCloud\Exchange\ExchangeInterface;
+use ComputationCloud\Exchange\Factory;
+use ComputationCloud\Json;
 
 /**
  * Class Gearman
@@ -25,7 +27,9 @@ use ComputationCloud\Exchange\ExchangeInterface;
  */
 abstract class Gearman implements TaskInterface
 {
-    /** @var \GearmanClient|\GearmanWorker $gearmanInstance*/
+    use Json;
+
+    /** @var \GearmanClient|\GearmanWorker $gearmanInstance */
     private $gearmanInstance;
     /** @var ExchangeInterface $exchange */
     private $exchange;
@@ -43,11 +47,14 @@ abstract class Gearman implements TaskInterface
             $this->gearmanInstance->addServers($servers);
         } else {
             $this->gearmanInstance = new \GearmanWorker();
+            $this->gearmanInstance->addServers($servers);
             $this->gearmanInstance->addFunction($this->name, [$this, 'workerRunner']);
         }
-        if (!($this->exchange = Helper::is($config['exchange']))) {
+        if (!($exchangeConfig = Helper::is($config['exchange']))) {
             throw new Exception("Exchange not defined", 1);
         }
+        $exchangeFactory = new Factory(Helper::is($exchangeConfig['type']));
+        $this->exchange = $exchangeFactory->getInstance(Helper::is($exchangeConfig['config']));
     }
 
     public function getCoreInterface()
@@ -61,7 +68,15 @@ abstract class Gearman implements TaskInterface
             throw new Exception("Do not run another task on the same instance until current is working", 1);
         }
         $this->result = null;
-        $this->job = $this->gearmanInstance->doBackground($this->name, json_encode($params));
+        $this->job = $this->gearmanInstance->doBackground(
+            $this->name,
+            $this->encode(
+                [
+                    'params' => $params,
+                    'exchange' => $this->exchange->getId(),
+                ]
+            )
+        );
     }
 
     public function isComplete()
@@ -84,13 +99,16 @@ abstract class Gearman implements TaskInterface
         return $this->result;
     }
 
-    public function work() {
+    public function work()
+    {
         $this->gearmanInstance->work();
     }
 
-    public function workerRunner($job) {
-        $params = json_decode($job->workload(), true);
-        $result = $this->worker($params);
+    public function workerRunner($job)
+    {
+        $params = $this->decode($job->workload());
+        $result = $this->worker($params['params']);
+        $this->exchange->setId($params['exchange']);
         $this->exchange->put($result);
         return true;
     }
