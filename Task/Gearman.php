@@ -5,6 +5,24 @@ namespace ComputationCloud\Task;
 use ComputationCloud\Helper;
 use ComputationCloud\Exchange\ExchangeInterface;
 
+/**
+ * Class Gearman
+ *
+ * Config example
+ * [
+ *  'connection' => ['servers' => '127.0.0.1:4730'],
+ *  'function' => 'sum',
+ *  'exchange' =>
+ *      [
+ *          'type' => 'redis',
+ *          'config' => ['host' => 'localhost']
+ *      ]
+ *  ],
+ * ]
+ *
+ *
+ * @package ComputationCloud\Task
+ */
 abstract class Gearman implements TaskInterface
 {
     /** @var \GearmanClient|\GearmanWorker $gearmanInstance*/
@@ -18,8 +36,8 @@ abstract class Gearman implements TaskInterface
 
     public function __construct(Array $config, $worker = false)
     {
-        $servers = Helper::is($config['gearman']['servers'], '127.0.0.1:4730');
-        $this->name = Helper::is($config['gearman']['function'], get_class($this));
+        $servers = Helper::is($config['connection']['servers'], '127.0.0.1:4730');
+        $this->name = Helper::is($config['function'], get_class($this));
         if (!$worker) {
             $this->gearmanInstance = new \GearmanClient();
             $this->gearmanInstance->addServers($servers);
