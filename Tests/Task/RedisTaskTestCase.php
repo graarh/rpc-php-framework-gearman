@@ -35,7 +35,7 @@ class RedisTaskTestCase extends PHPUnit_Framework_TestCase
         //worker should be used in a separate process
         //but for testing purposes let's create it here
         //create worker instance and run it
-        $worker = new Summator($config);
+        $worker = new Summator($config, true);
         $worker->work();
 
         //check and get result

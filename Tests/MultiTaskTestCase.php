@@ -40,7 +40,7 @@ class MultiTaskTestCase extends PHPUnit_Framework_TestCase
         //worker should be used in a separate process
         //but for testing purposes let's create it here
         //create worker instance and run it
-        $worker = new MultiSummator($config);
+        $worker = new MultiSummator($config, true);
 
         //run worker few times to process all summators
         //in real world it can be separate processes
