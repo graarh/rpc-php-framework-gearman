@@ -14,6 +14,8 @@ abstract class Gearman implements TaskInterface
     private $job = null;
     private $name;
 
+    private $result;
+
     public function __construct(Array $config, $worker = false)
     {
         $servers = Helper::is($config['gearman']['servers'], '127.0.0.1:4730');
@@ -40,6 +42,7 @@ abstract class Gearman implements TaskInterface
         if (!$this->isComplete()) {
             throw new Exception("Do not run another task on the same instance until current is working", 1);
         }
+        $this->result = null;
         $this->job = $this->gearmanInstance->doBackground($this->name, json_encode($params));
     }
 
@@ -53,10 +56,14 @@ abstract class Gearman implements TaskInterface
 
     public function result()
     {
+        if (!is_null($this->result)) {
+            return $this->result;
+        }
         if (!$this->job || !$this->isComplete()) {
             return false;
         }
-        return $this->exchange->pop();
+        $this->result = $this->exchange->pop();
+        return $this->result;
     }
 
     public function work() {
