@@ -64,8 +64,8 @@ abstract class Redis implements TaskInterface
         if (!($exchangeConfig = Helper::is($config['exchange']))) {
             throw new Exception("Exchange not defined", 1);
         }
-        $this->exchangeFactory = new Factory(Helper::is($exchangeConfig['type']));
-        $this->exchange = $this->exchangeFactory->getInstance(Helper::is($exchangeConfig['config']));
+        $exchangeFactory = new Factory(Helper::is($exchangeConfig['type']));
+        $this->exchange = $exchangeFactory->getInstance(Helper::is($exchangeConfig['config']));
     }
 
     public function getCoreInterface()
