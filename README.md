@@ -15,9 +15,8 @@ Currently, you can check tests for example of usage. Later on you can also look 
 Roadmap
 -------
 
-1. Make MultiTask more usable
-2. Add an example
-3. Make gearman test automatic
-4. Update readme
-5. Setup travis ci
-6. Make documentation
+1. Add an example
+2. Make gearman test automatic
+3. Update readme
+4. Setup travis ci
+5. Make documentation
